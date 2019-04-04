@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+
+  <!-- BS4 CSS --> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- Custom CSS --> 
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">  
+
+  <title>CrystalsCollector Game</title>
+</head>
+<body> 
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+          <img src="./assets/images/purple-crystal.png" width="15" height="30" class="d-inline-block align-top" alt="">
+          CrystalsCollector
+        </a>
+      </nav>
+
+    <!-- Hero -->
+   <div class="container-fluid">
+     
+            <div class="row">
+              <h1>Welcome to the Dark Crystal Collector Game</h1>
+            </div>
+
+            <div class="row" id="game-instructions">
+              <p>You will be given a random number at the start of the game.</p>
+              <p>There are four crystals below, clicking them will add a specific amount of points to your total score.</p> 
+              <p>You win the game by matching your total score to a random number that is shown.</p> <p>The value of each crystal is hidden from you until you click on it. Each time the game starts the crystals will have different values.</p>
+            </div>
+
+
+    <!-- Main Game Container -->
+      <section>
+        <h1>Number to Guess: <span id="number-to-guess-text"></span></h1> 
+
+        <div class="row">
+            <div class="column">
+              <img id="purple-crystal" src="./assets/images/purple-crystal.png" alt="purple crystal" style="width:100%">
+            </div>
+            <div class="column">
+              <img id="green-crystal" src="./assets/images/green-crystal.png" alt="green crystal" style="width:100%">
+            </div>
+            <div class="column">
+              <img id="gold-crystal" src="./assets/images/gold-crystal.png" alt="gold crystal" style="width:100%">
+            </div>
+            <div class="column">
+                <img id="peach-crystal" src="./assets/images/peach-crystal.png" alt="peach crystal" style="width:100%">
+              </div>
+          </div>
+      
+      <section>
+        <h1>Total Score: <span id="total-text"></span></h1>
+      </section>
+      
+      <section>
+        <h1>Wins: <span id="wins-text"></span></h1>
+        <h1>Losses: <span id="losses-text"></span></h1>
+      </section>
+  </div>
+         
+
+  <!-- JAVASCRIPT  -->
+  <!-- ========================================= -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script type="text/javascript">
+  
+  // Computer will randomly choose a number. 
+  var randomNumber = Math.floor((Math.random() * 65) + 35);
+  // Display the random number in html element.
+  $("#number-to-guess-text").text(randomNumber);
+
+  // Display player total score, wins, and losses. 
+  var counter = 0;
+  $("#total-text").text(counter);
+
+  var wins = 0;
+  $("#wins-text").text(wins);
+  
+  var losses = 0;
+  $("#losses-text").text(losses);
+  
+
+  // Create random values for each crystal in an array
+  var greenCrystalValue; 
+  function greenCrystalValue() {
+    greenCrystalValue = Math.floor((Math.random() * 3) + 1);
+  };
+
+  var purpleCrystalValue; 
+  function greenCrystalValue() {
+    purpleCrystalValue = Math.floor((Math.random() * 7) + 4);
+  };
+
+  var goldCrystalValue; 
+  function greenCrystalValue() {
+    goldCrystalValue = Math.floor((Math.random() * 10) + 8);
+  };
+
+  var peachCrystalValue; 
+  function greenCrystalValue() {
+    peachCrystalValue = Math.floor((Math.random() * 13) + 11);
+  };
+
+  
+  // Click crystal event.
+  $("#purple-crystal").on("click", function() {
+    // event.target.value 
+
+    
+    var crystalValue = ($(this).attr("data-crystalvalue"));
+    crystalValue = parseInt(crystalValue);
+    // We then add the crystalValue to the user's "counter" which is a global variable.
+
+    // Every click, from every crystal adds to the global counter.
+    counter += crystalValue;
+
+    // All of the same game win-lose logic applies. So the rest remains unchanged.
+
+    // Display stats
+    totalText.textContent = "New score: " + counter;
+    
+    // Display Wins
+    winsText.textContent = "WINS: " + wins;
+
+    // Display Losses
+    lossesText.textContent = "LOSSES: " + losses;
+
+
+    userChoiceText.textContent = "YOU CHOSE: " + userGuess;
+    
+
+    // playerGuesses.textContent = "Guesses Left: " + guessesLeft;        
+    remainingGuessElement.textContent = "REMAINING GUESSES: " + guessesLeft;
+
+
+    if (counter === targetNumber) {
+      alert("You win!");
+    }
+
+    else if (counter >= targetNumber) {
+      alert("You lose!!");
+    }
+
+  });
+  </script>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
